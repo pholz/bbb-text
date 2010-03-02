@@ -2,6 +2,7 @@ import nltk
 import random
 import re
 from msfunctions import *
+import news
 
 def isVowel(phone):
     if re.search(r'[012]',phone) is not None:
@@ -28,7 +29,17 @@ cmu_words = cmu_reader.words()
 #print cmu_reader.entries()[100:200]
 
 if True:
-    plwords = nltk.corpus.gutenberg.words('milton-paradise.txt')[:1000]
+    nsents = news.getNews()
+    nwords = []
+    for sent in nsents:
+        lsent = sent.split(" ")
+        nwords.extend(lsent)
+    
+   # print nwords
+    
+    plwords = []
+    plwords.extend(nltk.corpus.gutenberg.words('milton-paradise.txt')[20:1000])
+    plwords.extend(nwords)
     grams = nltk.util.trigrams(plwords)
     bigrams = nltk.util.bigrams(plwords)
     #print grams
@@ -47,7 +58,7 @@ if True:
     line_sylls = 0
    # print outp
     for word in outp:
-        if line_sylls >= 8 and re.match(r'[.:;,!?]',word) is not None:
+        if line_sylls >= 10 and re.match(r'[.:;,!?]',word) is not None:
             line += word
             line_sylls = 0
             verses += line + "\n"
@@ -87,12 +98,4 @@ if True:
 #    tex = re.sub(r'\' ', '\'',tex)
 #    print tex
 
-if False:
-    convwords = nltk.corpus.nps_chat.words('10-19-20s_706posts.xml')[:80]
-    c_grams = nltk.util.trigrams(convwords)
-    c_bigrams = nltk.util.bigrams(convwords)
-    #print grams
-    c_cfdtri = nltk.ConditionalFreqDist([((w1,w2),w3) for (w1, w2, w3) in c_grams])
-    c_cfdbi = nltk.ConditionalFreqDist(c_bigrams)
-    c_tex = generate_model(c_cfdtri, c_cfdbi, random.choice(c_bigrams), plwords, 1000)
-    print c_tex
+
