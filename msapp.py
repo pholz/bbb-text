@@ -22,7 +22,7 @@ def reg_lower_if(mo):
 
 #cmu_reader = nltk.corpus.reader.cmudict.CMUDictCorpusReader(".",nltk.corpus.cmudict.fileids())#["cmudict.0.6d.txt"])
 cmu_reader = nltk.corpus.cmudict
-print "building cmu dict..."
+#print "building cmu dict..."
 cmu_dict = cmu_reader.dict()
 cmu_words = cmu_reader.words()
 #print cmu_dict
@@ -47,8 +47,8 @@ if True:
     cfdbi = nltk.ConditionalFreqDist(bigrams)
     
    # wset = set(plwords)
-    for cd in cfdtri.conditions():
-        print str(cd) + " - " + str(cfdtri[cd].items())
+ #   for cd in cfdtri.conditions():
+ #       print str(cd) + " - " + str(cfdtri[cd].items())
             
     outp = generate_model(cfdtri, cfdbi, random.choice(bigrams), plwords, 1000)
  #   print outp
@@ -90,6 +90,10 @@ if True:
     verses = re.sub(r'[.!?] ([a-z])',reg_upper,verses)          #uppercase words after sentence end if not at line beginning
     
     print verses
+   
+  #  fi = open('news.txt', 'w')
+  #  fi.write(verses)
+   
     # kill spaces before puncutation
 #    tex = re.sub(r' ([.:;,!?\'"])',r'\1',outp)
     # line braks on punctuation

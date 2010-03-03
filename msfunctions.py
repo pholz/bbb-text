@@ -16,7 +16,7 @@ def generate_model(cfd, cfdbi, w, words, num=15):
         bitems = cfdbi[w[1]].items()
         
         if len(items) == 0:
-            print "FALLBACK: " + str(w)
+    #        print "FALLBACK: " + str(w)
             items = cfdbi[w[1]].items()
             
         totalprob = sum(map(lambda (word, prob): prob * 5, items))
